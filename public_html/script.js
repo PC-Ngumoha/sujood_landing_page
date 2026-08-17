@@ -1,59 +1,3 @@
-// const form = document.getElementById("signup-form");
-// const emailInput = document.getElementById("signup-email");
-// // const websiteInput = document.getElementById("website"); // honeypot
-// const subscribeBtn = document.getElementById("submit-btn");
-// const msgEl = document.getElementById("msg-el");
-
-// form.addEventListener("submit", async (e) => {
-//   e.preventDefault();
-
-//   const email = emailInput.value.trim();
-//   msgEl.textContent = "";
-//   msgEl.className = "msg";
-
-//   if (!email) {
-//     showMessage("Please enter an email address.", "error");
-//     return;
-//   }
-
-//   subscribeBtn.disabled = true;
-//   subscribeBtn.querySelector(".btn-text").textContent = "Sending…";
-
-//   try {
-//     // Same-origin request to our own PHP file — no CORS setup needed at all.
-//     const res = await fetch("subscribe.php", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ email, website: websiteInput.value }),
-//     });
-
-//     const data = await res.json();
-
-//     if (res.ok && data.success) {
-//       showMessage("✓ You're on the list. Thanks!", "signup-success");
-//       form.reset();
-//     } else {
-//       showMessage(
-//         data.error || "Something went wrong. Please try again.",
-//         "error",
-//       );
-//     }
-//   } catch (err) {
-//     showMessage(
-//       "Network error. Please check your connection and try again.",
-//       "error",
-//     );
-//   } finally {
-//     subscribeBtn.disabled = false;
-//     subscribeBtn.querySelector(".btn-text").textContent = "Sign Up";
-//   }
-// });
-
-// function showMessage(text, type) {
-//   msgEl.textContent = text;
-//   msgEl.className = `msg ${type}`;
-// }
-
 (function () {
   // ---- spine nav active state ----
   const dots = document.querySelectorAll(".spine-dot");
@@ -223,17 +167,22 @@
 
       if (!email) return;
 
-      const res = await fetch("subscribe.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+      try {
+        const res = await fetch("subscribe.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
 
-      // const data = res.json();
+        // const data = res.json();
 
-      if (res.ok) {
-        document.getElementById("signup-message").classList.add("show");
+        if (res.ok) {
+          document.getElementById("signup-message").classList.add("show");
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.reset();
       }
-      this.reset();
     });
 })();

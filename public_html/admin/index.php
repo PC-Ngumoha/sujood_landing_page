@@ -33,15 +33,18 @@ if (empty($_SESSION['is_admin'])) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Admin login</title>
-      <link rel="stylesheet" href="admin.css">
+      <link rel="stylesheet" href="/admin/admin.css">
     </head>
-    <body class="login-body">
+    <body>
       <form class="login-card" method="post">
-        <h1>Admin login</h1>
+        <header>
+          <h1>Admin login</h1>
+        </header>
         <?php if ($error): ?>
           <p class="error"><?= htmlspecialchars($error, ENT_QUOTES) ?></p>
         <?php endif; ?>
-        <label>
+        <div class="login-fields">
+          <label>
           Username
           <input type="text" name="username" autocomplete="username" required>
         </label>
@@ -50,6 +53,7 @@ if (empty($_SESSION['is_admin'])) {
           <input type="password" name="password" autocomplete="current-password" required>
         </label>
         <button type="submit">Log in</button>
+        </div>
       </form>
     </body>
     </html>
@@ -61,8 +65,8 @@ if (empty($_SESSION['is_admin'])) {
 $csvPath = __DIR__ . '/../../data/subscribers.csv';
 $subscribers = [];
 if (file_exists($csvPath) && ($handle = fopen($csvPath, 'r')) !== false) {
-    fgetcsv($handle); // skip header
-    while (($row = fgetcsv($handle)) !== false) {
+    fgetcsv($handle, null, ",", '"', ''); // skip header
+    while (($row = fgetcsv($handle,  null, ",", '"', '')) !== false) {
         if (!empty($row[0])) {
             $subscribers[] = ['email' => $row[0], 'date' => $row[1] ?? ''];
         }
@@ -102,7 +106,7 @@ $count = count($subscribers);
           <tr><td colspan="3" class="empty">No subscribers yet.</td></tr>
         <?php else: foreach ($subscribers as $i => $s): ?>
           <tr>
-            <td><?= $count - $i ?></td>
+            <td><?= $i + 1 ?></td>
             <td><?= htmlspecialchars($s['email'], ENT_QUOTES) ?></td>
             <td><?= htmlspecialchars($s['date'], ENT_QUOTES) ?></td>
           </tr>

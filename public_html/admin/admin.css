@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Space+Grotesk:wght@300..700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -22,6 +24,7 @@
 
 body {
   margin: 0;
+  padding: 10px;
   background: var(--cream);
   color: var(--ink);
   font-family: var(--sans);
@@ -49,6 +52,7 @@ header {
 header h1 {
   font-size: 28px;
   font-weight: 600;
+  font-family: var(--mono);
 }
 header .count {
   font-size: 14px;
@@ -74,7 +78,7 @@ header .count {
 }
 .download-btn {
   background: white;
-  color: #667eea;
+  color: var(--wine-deep);
 }
 .download-btn:hover {
   transform: translateY(-2px);
@@ -82,8 +86,8 @@ header .count {
 }
 .logout-link {
   background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--cream);
+  border: 1px solid var(--cream);
 }
 .logout-link:hover {
   background: rgba(255, 255, 255, 0.3);
@@ -145,4 +149,57 @@ tbody tr:last-child td {
   header h1 {
     font-size: 22px;
   }
+}
+
+/* LOGIN FORM STYLES */
+.login-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.login-fields {
+  padding: 20px;
+  width: 40%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.login-fields label {
+  font-family: var(--mono);
+}
+
+.login-fields input {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--wine);
+  font-size: 20px;
+  font-family: var(--serif);
+  color: var(--wine);
+}
+
+.login-fields input:focus {
+  outline: 0;
+}
+
+.login-fields button {
+  padding: 10px;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  text-transform: capitalize;
+  line-height: 45px;
+  font-weight: bold;
+  background: linear-gradient(135deg, var(--wine) 0%, var(--wine-deep) 100%);
+  color: var(--cream);
+  font-family: var(--mono);
+  border-radius: 10px;
+  border: 0;
+  box-shadow: 0 2px 6px var(--ink);
 }
