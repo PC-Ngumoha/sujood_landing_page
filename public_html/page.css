@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --ink: #10231c;
+  --paper: #f6f4ee;
+  --moss: #2f5d4f;
+  --moss-dark: #1f4238;
+  --line: #d9d4c6;
+  --error: #b8462f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, sans-serif;
+  padding: 24px;
+}
+
+.wrap { width: 100%; max-width: 460px; }
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 48px 40px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--moss);
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 12px;
+  color: var(--ink);
+}
+
+.sub {
+  font-size: 15px;
+  color: #55625b;
+  margin: 0 0 28px;
+  line-height: 1.5;
+}
+
+/* Honeypot: visually hidden but present in the DOM for bots to fill in */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.field-row {
+  display: flex;
+  gap: 8px;
+}
+
+input[type="email"] {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+input[type="email"]:focus {
+  outline: 2px solid var(--moss);
+  outline-offset: 1px;
+  border-color: var(--moss);
+}
+
+button {
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #fff;
+  background: var(--moss);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+button:hover { background: var(--moss-dark); }
+button:focus-visible { outline: 2px solid var(--moss-dark); outline-offset: 2px; }
+button:disabled { opacity: 0.6; cursor: default; }
+
+.msg {
+  min-height: 20px;
+  font-size: 13.5px;
+  margin: 12px 0 0;
+}
+
+.msg.success { color: var(--moss-dark); }
+.msg.error { color: var(--error); }
+
+@media (max-width: 420px) {
+  .card { padding: 32px 24px; }
+  .field-row { flex-direction: column; }
+  h1 { font-size: 27px; }
+}

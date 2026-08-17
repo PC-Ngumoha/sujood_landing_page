@@ -1,0 +1,13 @@
+# If you ever move the data/ folder inside public_html (instead of keeping
+# it one level above, as this project does by default), this file blocks
+# direct web access to it on Apache/LiteSpeed hosts.
+#
+# Apache 2.4+:
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+# Apache 2.2 fallback:
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
