@@ -76,6 +76,7 @@ if (file_exists($subscriberCsvPath) && ($handle = fopen($subscriberCsvPath, 'r')
 $subscribers = array_reverse($subscribers);
 $subscriberCount = count($subscribers);
 
+// --- Logged in: read reviews from review CSV file ---
 $reviewCsvPath = __DIR__ . '/../../data/reviews.csv';
 $reviews = [];
 if (file_exists($reviewCsvPath) && ($handle = fopen($reviewCsvPath, 'r')) !== false) {
@@ -90,6 +91,29 @@ if (file_exists($reviewCsvPath) && ($handle = fopen($reviewCsvPath, 'r')) !== fa
 }
 $reviews = array_reverse($reviews);
 $reviewCount = count($reviews);
+
+// --- Logged in: read requests from request CSV file ---
+$requestCsvPath = __DIR__ . '/../../data/requests.csv';
+$requests = [];
+if (file_exists($requestCsvPath) && ($handle = fopen($requestCsvPath, 'r')) !== false) {
+    fgetcsv($handle, null, ",", '"', ''); // skip header
+    while (($row = fgetcsv($handle, null, ",", '"', '')) !== false) {
+        if (!empty($row[0])) {
+            $requests[] = [
+                'sender_name' => $row[0] ?? '',
+                'sender_email' => $row[1] ?? '',
+                'recipient_name' => $row[2] ?? '',
+                'recipient_email' => $row[3] ?? '',
+                'gift_message' => $row[4] ?? '',
+                'date' => $row[5] ?? ''
+            ];
+        }
+    }
+    fclose($handle);
+}
+$requests = array_reverse($requests);
+$requestCount = count($requests);
+
 ?>
 <!-- Rendering dashboard to display all info received from csv files -->
 <!DOCTYPE html>
@@ -159,5 +183,43 @@ $reviewCount = count($reviews);
       </tbody>
     </table>
   </main>
+
+  <main>
+    <header>
+      <div>
+        <h1>🎁 Gift Requests</h1>
+        <p class="count"><?= $requestCount ?> request<?= $requestCount === 1 ? '' : 's' ?></p>
+      </div>
+    </header>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Sender Name</th>
+          <th>Sender Email</th>
+          <th>Recipient Name</th>
+          <th>Recipient Email</th>
+          <th colspan="2">Gift Message</th>
+          <th>Submitted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php if ($requestCount === 0): ?>
+          <tr><td colspan="8" class="empty">No requests yet.</td></tr>
+        <?php else: foreach ($requests as $i => $r): ?>
+          <tr>
+            <td><?= $i + 1 ?></td>
+            <td><?= htmlspecialchars($r['sender_name'], ENT_QUOTES) ?></td>
+            <td><?= htmlspecialchars($r['sender_email'], ENT_QUOTES) ?></td>
+            <td><?= htmlspecialchars($r['recipient_name'], ENT_QUOTES) ?></td>
+            <td><?= htmlspecialchars($r['recipient_email'], ENT_QUOTES) ?></td>
+            <td colspan="2"><?= htmlspecialchars($r['gift_message'], ENT_QUOTES) ?></td>
+            <td><?= htmlspecialchars(new DateTime($r['date'])->format('F j, Y, g:i a'), ENT_QUOTES) ?></td>
+          </tr>
+        <?php endforeach; endif; ?>
+      </tbody>
+    </table>
+  </main>
+
 </body>
 </html>

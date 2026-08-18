@@ -144,7 +144,10 @@
   const giftHint = document.getElementById("gift-hint");
   const recipientFields = document.querySelectorAll(".gift-recipient-field");
   const giftMessageLabel = document.getElementById("gift-message-label");
+  const giftSuccessMessage = document.getElementById("gift-success");
   let giftMode = "known";
+
+  giftSuccessMessage.style.display = "none"; // Make that message invisible
 
   giftToggle.querySelectorAll(".gift-option").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -171,12 +174,49 @@
     });
   });
 
-  document.getElementById("gift-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    document.getElementById("gift-success").classList.add("show");
-    this.reset();
-    giftToggle.querySelector('[data-mode="known"]').click();
-  });
+  document
+    .getElementById("gift-form")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const senderName = document.getElementById("gift-from-name").value;
+      const senderEmail = document.getElementById("gift-from-email").value;
+      const recipientName = document.getElementById("gift-to-name").value;
+      const recipientEmail = document.getElementById("gift-to-contact").value;
+      const giftMessage = document.getElementById("gift-message").value;
+
+      const data = {
+        sender_name: senderName,
+        sender_email: senderEmail,
+        recipient_name: recipientName ?? "",
+        recipient_email: recipientEmail ?? "",
+        gift_message: giftMessage ?? "",
+      };
+
+      try {
+        const res = await fetch("giftRequest.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        if (res.ok) {
+          giftSuccessMessage.style.display = "block"; // Make it visible again.
+
+          // After 5 seconds, message should disappear
+          setTimeout(() => {
+            giftSuccessMessage.style.display = "none";
+          }, 5 * 1000);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+
+      // console.log(data);
+
+      this.reset();
+      giftToggle.querySelector('[data-mode="known"]').click();
+    });
 
   // ---- newsletter signup (UI + Backend PHP service) ----
   document

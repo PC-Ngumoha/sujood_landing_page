@@ -678,6 +678,7 @@ section {
   grid-template-columns: 1fr 1fr;
   gap: 0 18px;
 }
+
 @media (max-width: 600px) {
   .gift-grid {
     grid-template-columns: 1fr;
