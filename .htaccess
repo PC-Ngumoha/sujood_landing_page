@@ -1,0 +1,7 @@
+# Force UTF-8 so non-ASCII characters (em-dashes, stars, checkmarks)
+# render correctly on PHP/Apache hosts regardless of server defaults.
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .html .htm .js .css .php
+
+# Optional hardening: disable directory browsing
+Options -Indexes

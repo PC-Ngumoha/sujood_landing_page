@@ -486,6 +486,11 @@ section {
     grid-template-columns: 1fr;
   }
 }
+.review-stack {
+  display: flex;
+  flex-direction: column;
+}
+
 .review-list {
   display: flex;
   flex-direction: column;
@@ -519,6 +524,32 @@ section {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-softer);
+}
+
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.review-nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.review-nav[hidden] {
+  display: none;
+}
+
+.review-nav .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .review-form {
@@ -819,4 +850,79 @@ footer {
   font-size: 11px;
   color: var(--ink-softer);
   letter-spacing: 0.04em;
+}
+
+/* ---------- toast notifications ---------- */
+.toast-container {
+  position: fixed;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: min(92vw, 420px);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  background: linear-gradient(100deg, var(--coral), var(--wine));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(35, 29, 26, 0.22);
+  padding: 13px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.toast-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.toast-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.toast-success .toast-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.toast-error {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.toast-error .toast-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.empty-reviews {
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
+  padding: 20px 0;
 }

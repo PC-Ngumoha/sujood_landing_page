@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 header('Content-Type: application/json');
 
-$reviewCsvPath = __DIR__ . '/../data/reviews.csv';
+require __DIR__ . '/config.php';
+
+$reviewCsvPath = __DIR__ . '/data/reviews.csv';
 
 if($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -19,7 +21,7 @@ if (!is_dir($datadir)) {
 if (!file_exists($reviewCsvPath)) {
     file_put_contents($reviewCsvPath, '');
     $fp = fopen($reviewCsvPath, 'w'); // Open the file
-    fputcsv($fp, ['rating', 'name', 'review', 'submitted_at']);
+    fputcsv($fp, ['rating', 'name', 'review', 'submitted_at'], ',', '"', '"');
     fclose($fp); // close the file
 }
 
@@ -53,16 +55,25 @@ if (empty($review)) {
     exit;
 }
 
+// --- Honeypot: a hidden field real visitors never fill in, bots often do ---
+if (!empty($input['website'])) {
+    echo json_encode(['success' => true]); // pretend success, drop silently
+    exit;
+}
+
+// --- Rate limit: max one review per visitor every 120s ---
+if (rate_limited('review', 120)) {
+    http_response_code(429);
+    echo json_encode(['error' => 'Please wait a moment before submitting another review.']);
+    exit;
+}
+
 // --- Save to CSV ---
-$fp = fopen($reviewCsvPath, 'a');
-if ($fp === false) {
+if (!csv_append_row($reviewCsvPath, [$rating, $name, $review, date('c')])) {
     http_response_code(500);
     echo json_encode(['error' => 'Failed to save review']);
     exit;
 }
-
-fputcsv($fp, [$rating, $name, $review, date('c')]);
-fclose($fp);
 
 http_response_code(200);
 echo json_encode(['success' => 'Review saved successfully']);

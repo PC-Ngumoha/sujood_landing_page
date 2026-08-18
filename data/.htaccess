@@ -1,6 +1,7 @@
-# If you ever move the data/ folder inside public_html (instead of keeping
-# it one level above, as this project does by default), this file blocks
-# direct web access to it on Apache/LiteSpeed hosts.
+# The data/ folder lives inside the web root next to index.php.
+# This file blocks direct web access to the CSV files that power the
+# site's forms and the admin dashboard, so visitors can never fetch
+# data/subscribers.csv (or friends) via a URL.
 #
 # Apache 2.4+:
 <IfModule mod_authz_core.c>
