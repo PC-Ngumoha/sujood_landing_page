@@ -8,7 +8,7 @@ const ADMIN_USER = 'admin';
 //   php -r "echo password_hash('your-password-here', PASSWORD_DEFAULT), PHP_EOL;"
 // then paste the result below. The default here is the hash for "changeme123" —
 // do not leave it as-is.
-const ADMIN_PASS_HASH = '$2y$10$4jdd86LbffxbZFbCS8PxiOzOXyh1H54P/WbFKTALILhiKKvDgtNrK';
+const ADMIN_PASS_HASH = '$2y$12$tc3tfg3AAMXqTaF.XwlASuefPr5Qr03EcZniKNFCWnAT.kd2FyB.O';
 
 $error = '';
 
