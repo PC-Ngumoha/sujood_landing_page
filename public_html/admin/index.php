@@ -111,7 +111,7 @@ $reviewCount = count($reviews);
         <p class="count"><?= $subscriberCount ?> subscriber<?= $subscriberCount === 1 ? '' : 's' ?></p>
       </div>
       <div class="actions">
-        <a href="download.php" class="download-btn">📥 Download CSV</a>
+        <!-- <a href="download.php" class="download-btn">📥 Download CSV</a> -->
         <a href="logout.php" class="logout-link">🚪 Log out</a>
       </div>
     </header>
@@ -124,13 +124,13 @@ $reviewCount = count($reviews);
           <tr>
             <td><?= $i + 1 ?></td>
             <td><?= htmlspecialchars($s['email'], ENT_QUOTES) ?></td>
-            <td><?= htmlspecialchars($s['date'], ENT_QUOTES) ?></td>
+            <td><?= htmlspecialchars(new DateTime($s['date'])->format('F j, Y, g:i a'), ENT_QUOTES) ?></td>
           </tr>
         <?php endforeach; endif; ?>
       </tbody>
     </table>
   </main>
-  <hr />
+  <!-- <hr /> -->
   <main>
     <header>
       <div>
@@ -153,7 +153,7 @@ $reviewCount = count($reviews);
             <td><?= htmlspecialchars($r['rating'], ENT_QUOTES) ?></td>
             <td><?= htmlspecialchars($r['name'], ENT_QUOTES) ?></td>
             <td colspan="2"><?= htmlspecialchars($r['review'], ENT_QUOTES) ?></td>
-            <td><?= htmlspecialchars($r['date'], ENT_QUOTES) ?></td>
+            <td><?= htmlspecialchars(new DateTime($r['date'])->format('F j, Y, g:i a'), ENT_QUOTES) ?></td>
           </tr>
         <?php endforeach; endif; ?>
       </tbody>
