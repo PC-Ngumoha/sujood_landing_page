@@ -61,10 +61,10 @@ if (empty($_SESSION['is_admin'])) {
     exit;
 }
 
-// --- Logged in: read the CSV and render the dashboard ---
-$csvPath = __DIR__ . '/../../data/subscribers.csv';
+// --- Logged in: read subscribers from subscriber CSV file ---
+$subscriberCsvPath = __DIR__ . '/../../data/subscribers.csv';
 $subscribers = [];
-if (file_exists($csvPath) && ($handle = fopen($csvPath, 'r')) !== false) {
+if (file_exists($subscriberCsvPath) && ($handle = fopen($subscriberCsvPath, 'r')) !== false) {
     fgetcsv($handle, null, ",", '"', ''); // skip header
     while (($row = fgetcsv($handle,  null, ",", '"', '')) !== false) {
         if (!empty($row[0])) {
@@ -74,8 +74,24 @@ if (file_exists($csvPath) && ($handle = fopen($csvPath, 'r')) !== false) {
     fclose($handle);
 }
 $subscribers = array_reverse($subscribers);
-$count = count($subscribers);
+$subscriberCount = count($subscribers);
+
+$reviewCsvPath = __DIR__ . '/../../data/reviews.csv';
+$reviews = [];
+if (file_exists($reviewCsvPath) && ($handle = fopen($reviewCsvPath, 'r')) !== false) {
+  fgetcsv($handle, null, ",", '"', ''); // Skip header
+  while(($row = fgetcsv($handle, null, ",", '"', '')) !== false) {
+    if (!empty($row[0])) {
+      
+      $reviews[] = ['rating' => $row[0], 'name' => $row[1], 'review' => $row[2], 'date' => $row[3]];
+    }
+  }
+  fclose($handle);
+}
+$reviews = array_reverse($reviews);
+$reviewCount = count($reviews);
 ?>
+<!-- Rendering dashboard to display all info received from csv files -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +108,7 @@ $count = count($subscribers);
     <header>
       <div>
         <h1>📧 Subscribers</h1>
-        <p class="count"><?= $count ?> subscriber<?= $count === 1 ? '' : 's' ?></p>
+        <p class="count"><?= $subscriberCount ?> subscriber<?= $subscriberCount === 1 ? '' : 's' ?></p>
       </div>
       <div class="actions">
         <a href="download.php" class="download-btn">📥 Download CSV</a>
@@ -102,13 +118,42 @@ $count = count($subscribers);
     <table>
       <thead><tr><th>#</th><th>Email</th><th>Submitted</th></tr></thead>
       <tbody>
-        <?php if ($count === 0): ?>
+        <?php if ($subscriberCount === 0): ?>
           <tr><td colspan="3" class="empty">No subscribers yet.</td></tr>
         <?php else: foreach ($subscribers as $i => $s): ?>
           <tr>
             <td><?= $i + 1 ?></td>
             <td><?= htmlspecialchars($s['email'], ENT_QUOTES) ?></td>
             <td><?= htmlspecialchars($s['date'], ENT_QUOTES) ?></td>
+          </tr>
+        <?php endforeach; endif; ?>
+      </tbody>
+    </table>
+  </main>
+  <hr />
+  <main>
+    <header>
+      <div>
+        <h1>💬 Reviews</h1>
+        <p class="count"><?= $reviewCount ?> review<?= $reviewCount === 1 ? '' : 's' ?></p>
+      </div>
+      <!-- <div class="actions">
+        <a href="download.php" class="download-btn">📥 Download CSV</a>
+        <a href="logout.php" class="logout-link">🚪 Log out</a>
+      </div> -->
+    </header>
+    <table>
+      <thead><tr><th>#</th><th>Rating</th><th>Full Name</th><th colspan="2">Review</th><th>Submitted</th></tr></thead>
+      <tbody>
+        <?php if ($reviewCount === 0): ?>
+          <tr><td colspan="5" class="empty">No reviews yet.</td></tr>
+        <?php else: foreach ($reviews as $i => $r): ?>
+          <tr>
+            <td><?= $i + 1 ?></td>
+            <td><?= htmlspecialchars($r['rating'], ENT_QUOTES) ?></td>
+            <td><?= htmlspecialchars($r['name'], ENT_QUOTES) ?></td>
+            <td colspan="2"><?= htmlspecialchars($r['review'], ENT_QUOTES) ?></td>
+            <td><?= htmlspecialchars($r['date'], ENT_QUOTES) ?></td>
           </tr>
         <?php endforeach; endif; ?>
       </tbody>

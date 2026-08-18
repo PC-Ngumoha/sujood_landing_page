@@ -92,8 +92,12 @@
     .getElementById("review-form")
     .addEventListener("submit", async function (e) {
       e.preventDefault();
-      const name = document.getElementById("rv-name").value.trim();
-      const text = document.getElementById("rv-text").value.trim();
+      const nameField = document.getElementById("rv-name");
+      const reviewField = document.getElementById("rv-text");
+      const reviewBtn = document.getElementById("review-button");
+
+      const name = nameField.value.trim();
+      const text = reviewField.value.trim();
       if (!name || !text || rating === 0) {
         noteEl.textContent = "Please add a name, a rating, and your review.";
         noteEl.style.color = "var(--wine)";
@@ -103,11 +107,21 @@
       storedReviews = [newReview, ...storedReviews];
       renderReviews([...storedReviews, ...seedReviews]);
       try {
-        await window.storage.set(
-          "user-reviews",
-          JSON.stringify(storedReviews),
-          true,
-        );
+        // Attempt to save review
+        const res = await fetch("review.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ rating, name, review: text }),
+        });
+
+        console.log(res.ok);
+
+        //   // save to browser storage
+        //   await window.storage.set(
+        //     "user-reviews",
+        //     JSON.stringify(storedReviews),
+        //     true,
+        //   );
       } catch (err) {
         /* storage unavailable — review still shows for this visit */
       }
@@ -115,7 +129,14 @@
       rating = 0;
       starBtns.forEach((b) => b.classList.remove("filled"));
       noteEl.style.color = "var(--wine)";
-      noteEl.textContent = "Thank you — your review has been posted above.";
+      noteEl.textContent =
+        "Thank you — your review has been submitted successfully.";
+      // deactivate fields and buttons
+      nameField.disabled = true;
+      reviewField.disabled = true;
+      reviewBtn.disabled = true;
+      reviewBtn.classList.remove("btn-primary");
+      reviewBtn.classList.add("btn-disabled");
     });
 
   // ---- gift it forward ----
@@ -157,13 +178,16 @@
     giftToggle.querySelector('[data-mode="known"]').click();
   });
 
-  // ---- newsletter signup (UI only — connect to a real email service) ----
+  // ---- newsletter signup (UI + Backend PHP service) ----
   document
     .getElementById("signup-form")
     .addEventListener("submit", async function (e) {
       e.preventDefault();
       const messageElement = document.getElementById("signup-message");
-      const email = document.getElementById("signup-email").value.trim();
+      const emailField = document.getElementById("signup-email");
+      const signupBtn = document.getElementById("signup-button");
+
+      const email = emailField.value.trim();
 
       if (!email) return;
 
@@ -177,7 +201,12 @@
         // const data = res.json();
 
         if (res.ok) {
-          document.getElementById("signup-message").classList.add("show");
+          document.getElementById("signup-message").classList.add("show"); // Display message
+
+          // Disable fields
+          emailField.disabled = true;
+          signupBtn.disabled = true;
+          signupBtn.classList.add("btn-disabled");
         }
       } catch (err) {
         console.error(err);

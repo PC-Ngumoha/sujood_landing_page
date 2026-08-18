@@ -31,9 +31,14 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+hr {
+  margin: 20px;
+}
 main {
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
@@ -109,12 +114,17 @@ th {
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  min-width: 100px;
 }
 td {
   padding: 16px;
   border-bottom: 1px solid #e9ecef;
   color: #212529;
   font-size: 14px;
+  text-wrap: balance;
+  overflow-wrap: normal;
+  /* word-break: normal; */
+  min-width: 100px;
 }
 tbody tr:hover {
   background: #f8f9fa;

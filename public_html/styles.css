@@ -247,6 +247,15 @@ h3 {
   background: linear-gradient(100deg, var(--coral), var(--wine));
   color: #fff;
 }
+.btn-disabled {
+  background: rgba(35, 29, 26, 0.08);
+  border-color: rgba(35, 29, 26, 0.12);
+  color: rgba(35, 29, 26, 0.52);
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+  filter: saturate(0.65);
+}
 .btn-primary:hover {
   filter: brightness(1.08);
 }
@@ -484,6 +493,8 @@ section {
   font-size: 17px;
   color: var(--ink);
   line-height: 1.55;
+  word-break: break-all;
+  text-wrap: balance;
 }
 .review-meta {
   margin-top: 14px;
