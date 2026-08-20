@@ -212,7 +212,7 @@ $socials = readCsv('socials', ['platform', 'url']);
           <div class="author-body">
             <div class="author-photo">
               <img
-                src="assets/images/author.jpeg"
+                src="assets/images/author.webp"
                 alt="Rahmah Aderinoye"
               />
             </div>
