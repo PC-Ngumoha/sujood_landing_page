@@ -202,56 +202,73 @@ $socials = readCsv('socials', ['platform', 'url']);
       </section>
       <div class="wrap"><div class="divider"></div></div>
 
-      <!-- CHAPTER II — ABOUT THE AUTHOR -->
-      <section id="author">
-        <div class="wrap">
-          <p class="eyebrow">Chapter II</p>
-          <div class="section-head">
-            <h2>About the author</h2>
-          </div>
-          <div class="author-body">
-            <div class="author-photo">
-              <img
-                src="assets/images/author.webp"
-                alt="Rahmah Aderinoye"
-              />
-            </div>
-            <div class="author-text">
-              <p>
-                Rahmah Aderinoye is a social entrepreneur, author, and the Founder and CEO of
-                Rashak Group, a diversified agribusiness group working to build sustainable
-                food systems across Africa. Her work spans agricultural production, commodity
-                aggregation, grain processing, food manufacturing, and cold chain logistics.
-              </p>
+<!-- CHAPTER II — ABOUT THE AUTHOR -->
+<section id="author">
+  <div class="wrap">
+    <p class="eyebrow">Chapter II</p>
+    <div class="section-head">
+      <h2>About the author</h2>
+    </div>
+    <div class="author-body">
+      <div class="author-photo">
+        <img
+          src="assets/images/author.webp"
+          alt="Rahmah Aderinoye"
+        />
+      </div>
+      <div class="author-text">
+        <p>
+          Rahmah Aderinoye is a social entrepreneur, author, and the Founder and CEO of
+          Rashak Group, a diversified agribusiness group working to build sustainable
+          food systems across Africa. Her work spans agricultural production, commodity
+          aggregation, grain processing, food manufacturing, and cold chain logistics.
+        </p>
 
-              <p>
-                Driven by the belief that life is not meant to be lived in fragments,
-                Rahmah's approach to leadership integrates faith, strategy, and service — a
-                philosophy this book embodies from the first page to the last.
-              </p>
+        <p>
+          Central to her work is a commitment to smallholder farmers, particularly women
+          and youth, built on ethical financing, agricultural training, and direct market
+          access. Under her leadership, Rashak Group has impacted thousands of farmers
+          across Nigeria while building agricultural systems designed for long-term
+          commercial viability and food security.
+        </p>
 
-              <p>
-                In
-                <em style="font-family: var(--serif)">Between Sujood and Strategy</em>,
-                Rahmah writes not as a theorist but as someone who has lived these realities —
-                leadership, motherhood, faith, and the cost of building something meaningful —
-                without the benefit of a clean separation between any of them. The book asks
-                a question she has had to answer in real conditions: how do you pursue what
-                you are capable of without losing what you believe? What she has found, and
-                what she shares here, is that the two were never actually in conflict.
-              </p>
+        <p>
+          Her background spans science, public health, and enterprise development,
+          shaping a leadership style built on systems thinking, integrity, and the
+          willingness to make decisions in conditions that don't offer certainty. Her
+          work has been recognised locally and internationally, including the Resolution
+          Project Fellowship at the United Nations, the Acumen West Africa Fellowship,
+          and a Top 20 African Business Hero nomination.
+        </p>
 
-              <p>
-                Rahmah is a wife and mother. She lives in Nigeria and believes, without
-                apology, that the women in the room change what the room decides. She
-                believes that leadership is an amanah — a trust — and that professional
-                excellence, pursued with the right intention, can itself become an act of
-                worship.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+        <p>
+          Driven by the belief that life is not meant to be lived in fragments,
+          Rahmah's approach to leadership integrates faith, strategy, and service — a
+          philosophy this book embodies from the first page to the last.
+        </p>
+
+        <p>
+          In
+          <em style="font-family: var(--serif)">Between Sujood and Strategy</em>,
+          Rahmah writes not as a theorist but as someone who has lived these realities —
+          leadership, motherhood, faith, and the cost of building something meaningful —
+          without the benefit of a clean separation between any of them. The book asks
+          a question she has had to answer in real conditions: how do you pursue what
+          you are capable of without losing what you believe? What she has found, and
+          what she shares here, is that the two were never actually in conflict.
+        </p>
+
+        <p>
+          Rahmah is a wife and mother. She lives in Nigeria and believes, without
+          apology, that the women in the room change what the room decides. She
+          believes that leadership is an amanah — a trust — and that professional
+          excellence, pursued with the right intention, can itself become an act of
+          worship.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
       <div class="wrap"><div class="divider"></div></div>
 
       <!-- CHAPTER III — WHERE TO FIND IT -->
